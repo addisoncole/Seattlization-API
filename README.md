@@ -1,5 +1,5 @@
 # Seattlization-API
-_Back-end API for Seattlization project || Built with Django/Python_
+_Back-end API for Seattlization project [Built with Django/Python]_
 
 ###About
 This is a project built with Python3.7.2, Django 2.1.4 and Postgres and serves as the backend API of the Seattlization Project. 
