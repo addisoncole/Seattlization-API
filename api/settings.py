@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'psycopg2',
     'django-environ',
     'djangorestframework',
+    'selenium',
 ]
 
 MIDDLEWARE = [
