@@ -13,5 +13,5 @@ This data was attained through data scraping public data, public records request
 ```
 GET /homelesscounts
 ```
-Returns yearly homeless count for King County and demographics of those counted.
+Returns yearly homeless count for King County and demographics of individuals counted.
 
