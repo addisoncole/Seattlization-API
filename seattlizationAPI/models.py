@@ -5,9 +5,9 @@ from django.db import models
 class HomelessCount(models.Model):
     year = models.IntegerField(null=False)
     total = models.IntegerField(null=False)
-    unsheltered = models.IntegerField()
-    emergency_shelter = models.IntegerField()
-    transitional_housing = models.IntegerField()
+    unsheltered = models.IntegerField(null=True)
+    emergency_shelter = models.IntegerField(null=True)
+    transitional_housing = models.IntegerField(null=True)
 
     def __str__(self):
-        return "Year:{}, Total:{}, {}".format(self.year, self.total, self.unsheltered)
+        return "Year:{}, Total:{}, {} {}".format(self.year, self.total, self.unsheltered, self.emergency_shelter, self.transitional_housing)
