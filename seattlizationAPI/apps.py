@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class SeattlizationapiConfig(AppConfig):
+class SeattlizationAPIConfig(AppConfig):
     name = 'seattlizationAPI'

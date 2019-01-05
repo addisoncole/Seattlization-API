@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'seattlizationAPI',
     'psycopg2',
-    'django-environ',
-    'djangorestframework',
+    'environ',
+    'rest_framework',
     'selenium',
+    'seattlizationAPI',
 ]
 
 MIDDLEWARE = [
