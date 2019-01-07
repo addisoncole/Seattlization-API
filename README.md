@@ -13,5 +13,13 @@ This data was attained through data scraping public data from nonprofits, U.S. C
 ```
 GET /homelesscounts/
 ```
-Returns yearly homeless count for King County and demographics of individuals counted.
+Returns a list of yearly homeless counts for King County and demographics of individuals counted.
 
+```
+GET /homelesscounts/:year
+```
+Returns the homeless count for that year.
+
+## IN DEVELOPMENT
+
+Additonal Endpoints desired: yearly city budgets, yearly distribution of incomes, yearly housing development with percentages of low income housing built, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city.
