@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views import HomelessCountsView
-
+from .views import HomelessCountsList
+from .views import HomelessCountDetail
 
 urlpatterns = [
-    path('homelesscounts/', HomelessCountsView.as_view()),
-    path('', HomelessCountsView.as_view()),
+    path('homelesscounts/', HomelessCountsList.as_view()),
+    path('homelesscounts/<int:year>/', HomelessCountDetail.as_view()),
+    path('', HomelessCountsList.as_view()),
 ]
