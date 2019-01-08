@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import HomelessCount, LowIncomeHousing
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit
 from .serializers import HomelessCountSerializer, HomelessCountDetailSerializer
 from .serializers import LowIncomeHousingSerializer, LowIncomeHousingDetailSerializer
 
@@ -23,3 +23,7 @@ class LowIncomeHousingDetail(generics.ListAPIView):
     queryset = LowIncomeHousing.objects.all()
     serializer_class = LowIncomeHousingSerializer
     lookup_field = 'year'
+
+class BuildingPermitsList(generics.ListAPIView):
+    queryset = BuildingPermit.objects.all()
+    #serializer_class = LowIncomeHousingSerializer

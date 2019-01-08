@@ -38,7 +38,7 @@ class LowIncomeHousing(models.Model):
     def __str__(self):
         return "Number of Units: {}, Year Placed In Service: {}, Name: {}, Address: {} {}, Council District: {}".format(self.number_of_units, self.year_placed_in_service, self.name, self.address, self.zip_code, self.council_district)
 
-class BuildingPermits(models.Model):
+class BuildingPermit(models.Model):
     permit_number = models.TextField(null=False)
     permit_class = models.TextField(null=False)
     permit_class_mapped = models.TextField(null=False)
