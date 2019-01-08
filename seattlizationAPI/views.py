@@ -1,10 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import HomelessCount, LowIncomeHousing, BuildingPermit
-from .serializers import HomelessCountSerializer, HomelessCountDetailSerializer
-from .serializers import LowIncomeHousingSerializer, LowIncomeHousingDetailSerializer
-
-# Create your views here.
+from .serializers import HomelessCountSerializer, HomelessCountDetailSerializer, LowIncomeHousingSerializer, LowIncomeHousingDetailSerializer, BuildingPermitSerializer
 
 class HomelessCountsList(generics.ListAPIView):
     queryset = HomelessCount.objects.all()
@@ -26,4 +23,4 @@ class LowIncomeHousingDetail(generics.ListAPIView):
 
 class BuildingPermitsList(generics.ListAPIView):
     queryset = BuildingPermit.objects.all()
-    #serializer_class = LowIncomeHousingSerializer
+    serializer_class = BuildingPermitSerializer

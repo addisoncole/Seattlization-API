@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HomelessCount, LowIncomeHousing
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit
 
 class HomelessCountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,3 +22,8 @@ class LowIncomeHousingDetailSerializer(serializers.ModelSerializer):
         model = LowIncomeHousing
         fields = ("number_of_units", "year_placed_in_service", "name", "address", "zip_code", "council_district", "hud", "sha", "state_or_county", "wshfc", "city_of_seattle")
         lookup_field = 'year'
+
+class  BuildingPermitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LowIncomeHousing
+        fields = ( "permit_number", "permit_class", "permit_class_mapped", "permit_type", "permit_type_mapped", "description", "number_of_units", "housing_units_removed", "housing_units_added", "permit_application_date", "permit_approval_date", "permit_completion_date", "location", "link")
