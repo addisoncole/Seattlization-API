@@ -19,7 +19,6 @@ class HomelessCount(models.Model):
     pct_hawaiian_api = models.IntegerField(null=True)
     pct_multiracial = models.IntegerField(null=True)
 
-
     def __str__(self):
         return "Year: {}, Total: {}, Unsheltered: {}, Emergency shelter: {}, Transitional housing: {}".format(self.year, self.total, self.unsheltered, self.emergency_shelter, self.transitional_housing)
 
@@ -36,6 +35,24 @@ class LowIncomeHousing(models.Model):
     wshfc = models.NullBooleanField(null=True)
     city_of_seattle = models.NullBooleanField(null=True)
 
-
     def __str__(self):
         return "Number of Units: {}, Year Placed In Service: {}, Name: {}, Address: {} {}, Council District: {}".format(self.number_of_units, self.year_placed_in_service, self.name, self.address, self.zip_code, self.council_district)
+
+class BuildingPermits(models.Model):
+    permit_number = models.TextField(null=False)
+    permit_class = models.TextField(null=False)
+    permit_class_mapped = models.TextField(null=False)
+    permit_type = models.TextField(null=True)
+    permit_type_mapped = models.TextField(null=False)
+    description = models.TextField(null=True)
+    number_of_units = models.IntegerField(null=True)
+    housing_units_removed = models.IntegerField(null=True)
+    housing_units_added = models.IntegerField(null=True)
+    permit_application_date = models.TextField(null=True)
+    permit_approval_date = models.TextField(null=True)
+    permit_completion_date = models.TextField(null=True)
+    location = models.TextField(null=True)
+    link = models.TextField(null=True)
+
+    def __str__(self):
+        return "Permit Number: {}, Permit Class: {} - {}, Permit Type: {} - {}, Description: {} , Number of Units: {}, # of Units Removed: {}, # of Units Added: ".format(self.permit_number, self.permit_class, self.permit_class_mapped, self.permit_type, self.permit_type_mapped, self.description, self.number_of_units, self.housing_units_removed, self.housing_units_added)
