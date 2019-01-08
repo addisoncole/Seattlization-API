@@ -7,9 +7,6 @@ from .serializers import HomelessCountDetailSerializer
 # Create your views here.
 
 class HomelessCountsList(generics.ListAPIView):
-    """
-    Provides a get method handler.
-    """
     queryset = HomelessCount.objects.all()
     serializer_class = HomelessCountSerializer
 

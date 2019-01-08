@@ -1,7 +1,5 @@
 from django.db import models
 
-#year="", total="", unsheltered="", emergency_shelter="", transitional_housing=""
-
 class HomelessCount(models.Model):
     year = models.IntegerField(null=False)
     total = models.IntegerField(null=False)
@@ -24,3 +22,20 @@ class HomelessCount(models.Model):
 
     def __str__(self):
         return "Year: {}, Total: {}, Unsheltered: {}, Emergency shelter: {}, Transitional housing: {}".format(self.year, self.total, self.unsheltered, self.emergency_shelter, self.transitional_housing)
+
+class LowIncomeHousing(models.Model):
+    number_of_units = models.IntegerField(null=False)
+    year_placed_in_service = models.IntegerField(null=False)
+    name = models.TextField(null=True)
+    address = models.TextField(null=True)
+    zip_code = models.TextField(null=True)
+    council_district = models.IntegerField(null=True)
+    hud = models.NullBooleanField(null=True)
+    sha = models.NullBooleanField(null=True)
+    state_or_county = models.NullBooleanField(null=True)
+    wshfc = models.NullBooleanField(null=True)
+    city_of_seattle = models.NullBooleanField(null=True)
+
+
+    def __str__(self):
+        return "Number of Units: {}, Year Placed In Service: {}, Name: {}, Address: {} {}, Council District: {}".format(self.number_of_units, self.year_placed_in_service, self.name, self.address, self.zip_code, self.council_district)
