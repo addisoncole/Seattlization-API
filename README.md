@@ -31,6 +31,12 @@ GET /lowincomehousing/:year
 ```
 Returns a list of all rent & income restricted housing in Seattle added during the provided year.
 
+### Building Permitting
+```
+GET /buildingpermits/
+```
+Returns a list of collected building permits in Seattle, details about the project, whether it is residential or commercial, and any housing units permitted to be added or removed. 
+
 ## IN DEVELOPMENT
 
-Additonal Endpoints desired: yearly city budgets, yearly distribution of incomes, yearly housing development with percentages of low income housing built, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city.
+Additonal Endpoints desired: yearly city budgets, yearly distribution of incomes, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city.
