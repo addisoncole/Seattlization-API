@@ -31,7 +31,7 @@ GET /lowincomehousing/:year
 ```
 Returns a list of all rent & income restricted housing in Seattle added during the provided year.
 
-### Building Permitting
+### Building Permitting in Seattle
 ```
 GET /buildingpermits/
 ```
