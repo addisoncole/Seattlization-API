@@ -51,4 +51,4 @@ Returns a list of each project approved under Seattle's MFTE Program, which prov
 
 ## IN DEVELOPMENT
 
-Additonal Endpoints desired: yearly city budgets, yearly distribution of incomes, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city, GINI index by year
+Additonal Endpoints desired: yearly city budgets, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city
