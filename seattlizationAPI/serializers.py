@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject, CommunitySurvey
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject, CommunitySurvey, CityBudget
 
 class HomelessCountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,3 +48,8 @@ class  CommunitySurveyDetailSerializer(serializers.ModelSerializer):
         model = CommunitySurvey
         fields = ("year", "total_population", "gini_index", "median_income", "income_under_10000", "income_10000_14999", "income_15000_19999", "income_20000_24999", "income_25000_29999", "income_30000_34999", "income_35000_39999", "income_40000_44999", "income_45000_49999", "income_50000_59999", "income_60000_74999", "income_75000_99999", "income_100000_124999", "income_125000_149999", "income_150000_199999", "income_over_200000", "median_rent_studio", "median_rent_1br", "median_rent_2br", "median_rent_3br", "median_rent_4br", "median_rent_5br")
         lookup_field = 'year'
+
+class  CityBudgetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CityBudget
+        fields = ("fiscal_year", "service", "department", "program", "expense_category", "expense_type", "fund", "fund_type", "description", "recommended_amount", "approved_amount")

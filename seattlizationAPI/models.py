@@ -108,6 +108,7 @@ class MFTEProject(models.Model):
     def __str__(self):
         return "Project Name: {}, Address: {}, Tax Exemption Start: {}, Tax Exemption End: {}, Total Units: {}, Total Affordable Units: {}".format(self.project_name, self.address, self.tax_exemption_start, self.total_units, self.total_affordable_units)
 
+#from US Census Bureau American Community Survey (ACS) 1year
 class CommunitySurvey(models.Model):
     year = models.IntegerField(null=False)
     total_population = models.IntegerField(null=False)
@@ -140,6 +141,8 @@ class CommunitySurvey(models.Model):
     def __str__(self):
         return "Year: {}, Total Population: {}, Gini Index: {}, Median Income: {}, Median Rent for 1br: {}".format(self.year, self.total_population, self.gini_index, self.median_income, self.median_rent_1br)
 
+
+#data.seattle.gov city budget API
 class CityBudget(models.Model):
     fiscal_year = models.IntegerField(null=False)
     service = models.TextField(null=True)
@@ -152,7 +155,6 @@ class CityBudget(models.Model):
     description = models.TextField(null=False)
     recommended_amount = models.TextField(null=True)
     approved_amount = models.TextField(null=False)
-
 
     def __str__(self):
         return "Fiscal Year: {}, Service: {}, Description: {}, Approved Amount: {}".format(self.fiscal_year, self.service, self.description, self.approved_amount)
