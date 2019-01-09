@@ -159,22 +159,7 @@ class CityBudget(models.Model):
     def __str__(self):
         return "Fiscal Year: {}, Service: {}, Description: {}, Approved Amount: {}".format(self.fiscal_year, self.service, self.description, self.approved_amount)
 
-class CityBudget(models.Model):
-    fiscal_year = models.IntegerField(null=False)
-    service = models.TextField(null=True)
-    department = models.TextField(null=True)
-    program = models.TextField(null=True)
-    expense_category = models.TextField(null=True)
-    expense_type = models.TextField(null=True)
-    fund = models.TextField(null=True)
-    fund_type = models.TextField(null=True)
-    description = models.TextField(null=False)
-    recommended_amount = models.TextField(null=True)
-    approved_amount = models.TextField(null=False)
-
-    def __str__(self):
-        return "Fiscal Year: {}, Service: {}, Description: {}, Approved Amount: {}".format(self.fiscal_year, self.service, self.description, self.approved_amount)
-
+#data from Redfin
 class HousingMarket(models.Model):
     year = models.IntegerField(null=False)
     month = models.TextField(null=False)
