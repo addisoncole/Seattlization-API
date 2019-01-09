@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject, CommunitySurvey, CityBudget
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject, CommunitySurvey, CityBudget, HousingMarket
 
 class HomelessCountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,3 +53,8 @@ class  CityBudgetSerializer(serializers.ModelSerializer):
     class Meta:
         model = CityBudget
         fields = ("fiscal_year", "service", "department", "program", "expense_category", "expense_type", "fund", "fund_type", "description", "recommended_amount", "approved_amount")
+
+class  HousingMarketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HousingMarket
+        fields = ("year", "month", "median_sale_price", "homes_sold", "days_on_market")
