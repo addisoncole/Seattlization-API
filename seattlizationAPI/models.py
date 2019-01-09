@@ -75,7 +75,7 @@ class EncampmentRemoval(models.Model):
         return "Date of Removal: {}, {}, Location: {}, Departments responsible for removal: {}, Reasons for Removal: vehicle hazard - {}, criminal activity - {}, waste & debris - {}, health hazard to neighborhood - {}, limited emergency services - {}, scheduled worksite - {}, damage to environment - {}, proximity_to_school_or_elderly - {}".format(self.date, self.year, self.location, self.departments_responsible_for_removal, self.vehicle_hazard, self.criminal_activity, self.waste_and_debris, self.health_hazard_to_neighborhood, self.limited_emergency_services, self.scheduled_worksite, self.damage_to_environment, self.proximity_to_school_or_elderly)
 
 # MFTE - Multi Family Tax Exempted Projects, developers receive tax exemption for setting aside portion of housing for low income.
-class MFTEProjects(models.Model):
+class MFTEProject(models.Model):
     project_name = models.TextField(null=False)
     tax_exemption_start = models.IntegerField(null=False)
     tax_exemption_end = models.IntegerField(null=False)

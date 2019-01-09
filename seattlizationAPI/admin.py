@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProjects
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject
 
 admin.site.register(HomelessCount)
 admin.site.register(LowIncomeHousing)
 admin.site.register(BuildingPermit)
 admin.site.register(EncampmentRemoval)
-admin.site.register(MFTEProjects)
+admin.site.register(MFTEProject)
