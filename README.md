@@ -49,6 +49,16 @@ GET /mfteprojects/
 ```
 Returns a list of each project approved under Seattle's MFTE Program, which provides tax emptions in exchange for setting aside 20-25% of the homes as income or rent-restricted.
 
+### U.S. Census Bureau Yearly American Community Surveys
+```
+GET /communitysurveys/
+```
+Returns a list of statistics for King County collected by the yearly US Census Bureau's American Commuity Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings. 
+```
+GET /communitysurveys/:year
+```
+Returns the above data for the provided year.
+
 ## IN DEVELOPMENT
 
 Additonal Endpoints desired: yearly city budgets, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city
