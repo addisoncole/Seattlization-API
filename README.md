@@ -43,6 +43,12 @@ GET /encampmentremovals/
 ```
 Returns a list of each removal of an 'illegal' encampment. Returns removal dates, agencies responsible for removal, as well as reasons used for removal. 
 
+### Multi-Family Tax Exempted(MFTE) Projects
+```
+GET /mfteprojects/
+```
+Returns a list of each project approved under Seattle's MFTE Program, which provides tax emptions in exchange for setting aside 20-25% of the homes as income or rent-restricted.
+
 ## IN DEVELOPMENT
 
 Additonal Endpoints desired: yearly city budgets, yearly distribution of incomes, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city, GINI index by year
