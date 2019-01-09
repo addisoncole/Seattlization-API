@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import HomelessCountsList, HomelessCountDetail, LowIncomeHousingList, LowIncomeHousingDetail, BuildingPermitsList, EncampmentRemovalList, MFTEProjectsList
+from .views import HomelessCountsList, HomelessCountDetail, LowIncomeHousingList, LowIncomeHousingDetail, BuildingPermitsList, EncampmentRemovalList, MFTEProjectsList, CommunitySurveysList, CommunitySurveysDetail
 
 urlpatterns = [
     path('homelesscounts/', HomelessCountsList.as_view()),
@@ -10,5 +10,7 @@ urlpatterns = [
     path('buildingpermits/', BuildingPermitsList.as_view()),
     path('encampmentremovals/', EncampmentRemovalList.as_view()),
     path('mfteprojects/', MFTEProjectsList.as_view()),
+    path('communitysurveys/', CommunitySurveysList.as_view()),
+    path('communitysurveys/<int:year>/', CommunitySurveysDetail.as_view()),
     path('', HomelessCountsList.as_view()),
 ]

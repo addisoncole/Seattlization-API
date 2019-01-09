@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject
-from .serializers import HomelessCountSerializer, HomelessCountDetailSerializer, LowIncomeHousingSerializer, LowIncomeHousingDetailSerializer, BuildingPermitSerializer, EncampmentRemovalSerializer, MFTEProjectSerializer
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject, CommunitySurvey
+from .serializers import HomelessCountSerializer, HomelessCountDetailSerializer, LowIncomeHousingSerializer, LowIncomeHousingDetailSerializer, BuildingPermitSerializer, EncampmentRemovalSerializer, MFTEProjectSerializer, CommunitySurveySerializer, CommunitySurveyDetailSerializer
 
 class HomelessCountsList(generics.ListAPIView):
     queryset = HomelessCount.objects.all()
@@ -32,3 +32,12 @@ class EncampmentRemovalList(generics.ListAPIView):
 class MFTEProjectsList(generics.ListAPIView):
     queryset = MFTEProject.objects.all()
     serializer_class = MFTEProjectSerializer
+
+class CommunitySurveysList(generics.ListAPIView):
+    queryset = CommunitySurvey.objects.all()
+    serializer_class = CommunitySurveySerializer
+
+class CommunitySurveysDetail(generics.RetrieveAPIView):
+    queryset = CommunitySurvey.objects.all()
+    serializer_class = CommunitySurveyDetailSerializer
+    lookup_field = 'year'
