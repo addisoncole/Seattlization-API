@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval, MFTEProject
 
 class HomelessCountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,3 +32,8 @@ class  EncampmentRemovalSerializer(serializers.ModelSerializer):
     class Meta:
         model = EncampmentRemoval
         fields = ("date", "year", "location", "departments_responsible_for_removal", "vehicle_hazard", "criminal_activity", "waste_and_debris", "health_hazard_to_neighborhood", "limited_emergency_services", "scheduled_worksite", "damage_to_environment", "proximity_to_school_or_elderly")
+
+class  MFTEProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MFTEProject
+        fields = ("project_name", "tax_exemption_start", "tax_exemption_end", "year_of_approval", "address", "council_district", "targeted_area", "subsidized", "total_units", "total_affordable_units", "microhousing", "SEDU_total", "SEDU_affordable", "studio_units_total", "studio_units_affordable", "one_br_total", "one_br_affordable", "two_br_total", "two_br_affordable", "three_br_total", "three_br_affordable", "four_br_total", "four_br_affordable")
