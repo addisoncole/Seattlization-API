@@ -1,5 +1,6 @@
 from django.db import models
 
+#Point in time Count for yearly Count Us In/One Night Count of homeless
 class HomelessCount(models.Model):
     year = models.IntegerField(null=False)
     total = models.IntegerField(null=False)
@@ -22,6 +23,7 @@ class HomelessCount(models.Model):
     def __str__(self):
         return "Year: {}, Total: {}, Unsheltered: {}, Emergency shelter: {}, Transitional housing: {}".format(self.year, self.total, self.unsheltered, self.emergency_shelter, self.transitional_housing)
 
+#data.seattle.gov API
 class LowIncomeHousing(models.Model):
     number_of_units = models.IntegerField(null=False)
     year_placed_in_service = models.IntegerField(null=False)
@@ -38,6 +40,7 @@ class LowIncomeHousing(models.Model):
     def __str__(self):
         return "Number of Units: {}, Year Placed In Service: {}, Name: {}, Address: {} {}, Council District: {}".format(self.number_of_units, self.year_placed_in_service, self.name, self.address, self.zip_code, self.council_district)
 
+#data.seattle.gov API
 class BuildingPermit(models.Model):
     permit_number = models.TextField(null=False)
     permit_class = models.TextField(null=False)
@@ -57,6 +60,7 @@ class BuildingPermit(models.Model):
     def __str__(self):
         return "Permit Number: {}, Permit Class: {} - {}, Permit Type: {} - {}, Description: {} , Number of Units: {}, # of Units Removed: {}, # of Units Added: ".format(self.permit_number, self.permit_class, self.permit_class_mapped, self.permit_type, self.permit_type_mapped, self.description, self.number_of_units, self.housing_units_removed, self.housing_units_added)
 
+#2018 data only currently, from government watcher's spreadsheet
 class EncampmentRemoval(models.Model):
     date = models.TextField(null=False)
     year = models.TextField(null=False)
@@ -74,7 +78,7 @@ class EncampmentRemoval(models.Model):
     def __str__(self):
         return "Date of Removal: {}, {}, Location: {}, Departments responsible for removal: {}, Reasons for Removal: vehicle hazard - {}, criminal activity - {}, waste & debris - {}, health hazard to neighborhood - {}, limited emergency services - {}, scheduled worksite - {}, damage to environment - {}, proximity_to_school_or_elderly - {}".format(self.date, self.year, self.location, self.departments_responsible_for_removal, self.vehicle_hazard, self.criminal_activity, self.waste_and_debris, self.health_hazard_to_neighborhood, self.limited_emergency_services, self.scheduled_worksite, self.damage_to_environment, self.proximity_to_school_or_elderly)
 
-# MFTE - Multi Family Tax Exempted Projects, developers receive tax exemption for setting aside portion of housing for low income.
+# MFTE - Multi Family Tax Exempted Projects, developers receive tax exemption for setting aside portion of housing for low income. From data.seattle.gov API
 class MFTEProject(models.Model):
     project_name = models.TextField(null=False)
     tax_exemption_start = models.IntegerField(null=False)
