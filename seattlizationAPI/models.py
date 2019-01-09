@@ -73,3 +73,33 @@ class EncampmentRemoval(models.Model):
 
     def __str__(self):
         return "Date of Removal: {}, {}, Location: {}, Departments responsible for removal: {}, Reasons for Removal: vehicle hazard - {}, criminal activity - {}, waste & debris - {}, health hazard to neighborhood - {}, limited emergency services - {}, scheduled worksite - {}, damage to environment - {}, proximity_to_school_or_elderly - {}".format(self.date, self.year, self.location, self.departments_responsible_for_removal, self.vehicle_hazard, self.criminal_activity, self.waste_and_debris, self.health_hazard_to_neighborhood, self.limited_emergency_services, self.scheduled_worksite, self.damage_to_environment, self.proximity_to_school_or_elderly)
+
+# MFTE - Multi Family Tax Exempted Projects, developers receive tax exemption for setting aside portion of housing for low income.
+class MFTEProjects(models.Model):
+    project_name = models.TextField(null=False)
+    tax_exemption_start = models.IntegerField(null=False)
+    tax_exemption_end = models.IntegerField(null=False)
+    year_of_approval = models.IntegerField(null=True)
+    address = models.TextField(null=False)
+    council_district = models.IntegerField(null=True)
+    targeted_area = models.TextField(null=True)
+    subsidized = models.NullBooleanField(null=True)
+    total_units = models.IntegerField(null=True)
+    total_affordable_units = models.IntegerField(null=True)
+    microhousing = models.NullBooleanField(null=True)
+    # single efficiency dwelling unit (a form of microhousing)
+    SEDU_total = models.IntegerField(null=True)
+    SEDU_affordable = models.IntegerField(null=True)
+    studio_units_total = models.IntegerField(null=True)
+    studio_units_affordable = models.IntegerField(null=True)
+    one_br_total = models.IntegerField(null=True)
+    one_br_affordable = models.IntegerField(null=True)
+    two_br_total = models.IntegerField(null=True)
+    two_br_affordable = models.IntegerField(null=True)
+    three_br_total = models.IntegerField(null=True)
+    three_br_affordable = models.IntegerField(null=True)
+    four_br_total = models.IntegerField(null=True)
+    four_br_affordable = models.IntegerField(null=True)
+
+    def __str__(self):
+        return "Project Name: {}, Address: {}, Tax Exemption Start: {}, Tax Exemption End: {}, Total Units: {}, Total Affordable Units: {}".format(self.project_name, self.address, self.tax_exemption_start, self.total_units, self.total_affordable_units)
