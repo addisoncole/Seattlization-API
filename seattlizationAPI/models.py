@@ -56,3 +56,20 @@ class BuildingPermit(models.Model):
 
     def __str__(self):
         return "Permit Number: {}, Permit Class: {} - {}, Permit Type: {} - {}, Description: {} , Number of Units: {}, # of Units Removed: {}, # of Units Added: ".format(self.permit_number, self.permit_class, self.permit_class_mapped, self.permit_type, self.permit_type_mapped, self.description, self.number_of_units, self.housing_units_removed, self.housing_units_added)
+
+class EncampmentRemoval(models.Model):
+    date = models.TextField(null=False)
+    year = models.TextField(null=False)
+    location = models.TextField(null=False)
+    departments_responsible_for_removal = models.TextField(null=True)
+    vehicle_hazard = models.NullBooleanField(null=True)
+    criminal_activity = models.NullBooleanField(null=True)
+    waste_and_debris = models.NullBooleanField(null=True)
+    health_hazard_to_neighborhood = models.NullBooleanField(null=True)
+    limited_emergency_services = models.NullBooleanField(null=True)
+    scheduled_worksite = models.NullBooleanField(null=True)
+    damage_to_environment = models.NullBooleanField(null=True)
+    proximity_to_school_or_elderly = models.NullBooleanField(null=True)
+
+    def __str__(self):
+        return "Date of Removal: {}, {}, Location: {}, Departments responsible for removal: {}, Reasons for Removal: vehicle hazard - {}, criminal activity - {}, waste & debris - {}, health hazard to neighborhood - {}, limited emergency services - {}, scheduled worksite - {}, damage to environment - {}, proximity_to_school_or_elderly - {}".format(self.date, self.year, self.location, self.departments_responsible_for_removal, self.vehicle_hazard, self.criminal_activity, self.waste_and_debris, self.health_hazard_to_neighborhood, self.limited_emergency_services, self.scheduled_worksite, self.damage_to_environment, self.proximity_to_school_or_elderly)
