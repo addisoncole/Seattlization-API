@@ -2,7 +2,7 @@
 _Back-end API for Seattlization project [Built with Django/Python]_
 
 ### About
-This is a project built with Python 3.7.2, Django 2.0.9 and Postgres and serves as the backend API of the [Seattlization Project](https://github.com/addisoncole/Seattlization "Seattlization"). 
+This is a project built with Python 3.7.2, Django 2.0.9 and Postgres and serves as the backend API of the [Seattlization Project](https://github.com/addisoncole/Seattlization "Seattlization").
 
 The data one can access at the endpoints of this API is made up of publicly accessed data on income, housing, homelessness and inequality in Seattle, WA.
 This data was attained through data scraping public data from nonprofits, U.S. Census Bureau data, public records requests and the use of local governmental data and APIs.
@@ -35,13 +35,13 @@ Returns a list of all rent & income restricted housing in Seattle added during t
 ```
 GET /buildingpermits/
 ```
-Returns a list of collected building permits in Seattle, details about the project, whether it is residential or commercial, and any housing units permitted to be added or removed. 
+Returns a list of collected building permits in Seattle, details about the project, whether it is residential or commercial, and any housing units permitted to be added or removed.
 
 ### Encampment Removals
 ```
 GET /encampmentremovals/
 ```
-Returns a list of each removal of an 'illegal' encampment. Returns removal dates, agencies responsible for removal, as well as reasons used for removal. 
+Returns a list of each removal of an 'illegal' encampment. Returns removal dates, agencies responsible for removal, as well as reasons used for removal.
 
 ### Multi-Family Tax Exempted(MFTE) Projects
 ```
@@ -53,11 +53,17 @@ Returns a list of each project approved under Seattle's MFTE Program, which prov
 ```
 GET /communitysurveys/
 ```
-Returns a list of statistics for King County collected by the yearly US Census Bureau's American Commuity Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings. 
+Returns a list of statistics for King County collected by the yearly US Census Bureau's American Commuity Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings.
 ```
 GET /communitysurveys/:year
 ```
 Returns the above data for the provided year.
+
+### Seattle Housing Market Data
+```
+GET /housingmarkets/
+```
+Returns a list data collected from Redfin broken down by year and the month reported of the median sale price of homes, number of homes sold and the average time a house spends on the market.
 
 ## IN DEVELOPMENT
 
