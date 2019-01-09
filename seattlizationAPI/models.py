@@ -107,3 +107,65 @@ class MFTEProject(models.Model):
 
     def __str__(self):
         return "Project Name: {}, Address: {}, Tax Exemption Start: {}, Tax Exemption End: {}, Total Units: {}, Total Affordable Units: {}".format(self.project_name, self.address, self.tax_exemption_start, self.total_units, self.total_affordable_units)
+
+#from US Census Bureau American Community Survey (ACS) 1year
+class CommunitySurvey(models.Model):
+    year = models.IntegerField(null=False)
+    total_population = models.IntegerField(null=False)
+    gini_index = models.FloatField(null=False)
+    median_income = models.IntegerField(null=False)
+    income_under_10000 = models.IntegerField(null=True)
+    income_10000_14999 = models.IntegerField(null=True)
+    income_15000_19999 = models.IntegerField(null=True)
+    income_20000_24999 = models.IntegerField(null=True)
+    income_25000_29999 = models.IntegerField(null=True)
+    income_30000_34999 = models.IntegerField(null=True)
+    income_35000_39999 = models.IntegerField(null=True)
+    income_40000_44999 = models.IntegerField(null=True)
+    income_45000_49999 = models.IntegerField(null=True)
+    income_50000_59999 = models.IntegerField(null=True)
+    income_60000_74999 = models.IntegerField(null=True)
+    income_75000_99999 = models.IntegerField(null=True)
+    income_100000_124999 = models.IntegerField(null=True)
+    income_125000_149999 = models.IntegerField(null=True)
+    income_150000_199999 = models.IntegerField(null=True)
+    income_over_200000 = models.IntegerField(null=True)
+    median_rent_studio = models.IntegerField(null=True)
+    median_rent_1br = models.IntegerField(null=True)
+    median_rent_2br = models.IntegerField(null=True)
+    median_rent_3br = models.IntegerField(null=True)
+    median_rent_4br = models.IntegerField(null=True)
+    median_rent_5br = models.IntegerField(null=True)
+
+
+    def __str__(self):
+        return "Year: {}, Total Population: {}, Gini Index: {}, Median Income: {}, Median Rent for 1br: {}".format(self.year, self.total_population, self.gini_index, self.median_income, self.median_rent_1br)
+
+
+#data.seattle.gov city budget API
+class CityBudget(models.Model):
+    fiscal_year = models.IntegerField(null=False)
+    service = models.TextField(null=True)
+    department = models.TextField(null=True)
+    program = models.TextField(null=True)
+    expense_category = models.TextField(null=True)
+    expense_type = models.TextField(null=True)
+    fund = models.TextField(null=True)
+    fund_type = models.TextField(null=True)
+    description = models.TextField(null=False)
+    recommended_amount = models.TextField(null=True)
+    approved_amount = models.TextField(null=False)
+
+    def __str__(self):
+        return "Fiscal Year: {}, Service: {}, Description: {}, Approved Amount: {}".format(self.fiscal_year, self.service, self.description, self.approved_amount)
+
+#data from Redfin
+class HousingMarket(models.Model):
+    year = models.IntegerField(null=False)
+    month = models.TextField(null=False)
+    median_sale_price = models.TextField(null=False)
+    homes_sold = models.TextField(null=True)
+    days_on_market = models.IntegerField(null=False)
+
+    def __str__(self):
+        return "Month/Year: {}/{}, Median Sale Price: {}, # of Homes Sold: {}, Avg # days on market: {}".format(self.month, self.year, self.median_sale_price, self.homes_sold, self.days_on_market)
