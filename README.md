@@ -37,6 +37,12 @@ GET /buildingpermits/
 ```
 Returns a list of collected building permits in Seattle, details about the project, whether it is residential or commercial, and any housing units permitted to be added or removed. 
 
+### Encampment Removals
+```
+GET /encampmentremovals/
+```
+Returns a list of each removal of an 'illegal' encampment. Returns removal dates, agencies responsible for removal, as well as reasons used for removal. 
+
 ## IN DEVELOPMENT
 
 Additonal Endpoints desired: yearly city budgets, yearly distribution of incomes, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city, GINI index by year
