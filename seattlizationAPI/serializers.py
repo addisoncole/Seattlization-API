@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HomelessCount, LowIncomeHousing, BuildingPermit
+from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentRemoval
 
 class HomelessCountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,3 +27,8 @@ class  BuildingPermitSerializer(serializers.ModelSerializer):
     class Meta:
         model = LowIncomeHousing
         fields = ( "permit_number", "permit_class", "permit_class_mapped", "permit_type", "permit_type_mapped", "description", "number_of_units", "housing_units_removed", "housing_units_added", "permit_application_date", "permit_approval_date", "permit_completion_date", "location", "link")
+
+class  EncampmentRemovalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EncampmentRemoval
+        fields = ("date", "year", "location", "departments_responsible_for_removal", "vehicle_hazard", "criminal_activity", "waste_and_debris", "health_hazard_to_neighborhood", "limited_emergency_services", "scheduled_worksite", "damage_to_environment", "proximity_to_school_or_elderly")
