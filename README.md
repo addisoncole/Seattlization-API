@@ -53,7 +53,7 @@ Returns a list of each project approved under Seattle's MFTE Program, which prov
 ```
 GET /communitysurveys/
 ```
-Returns a list of statistics for King County collected by the yearly US Census Bureau's American Commuity Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings.
+Returns a list of statistics for King County collected by the yearly US Census Bureau's American Commuity Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings. Years Available: 2010 - 2017.
 ```
 GET /communitysurveys/:year
 ```
