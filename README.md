@@ -59,11 +59,18 @@ GET /communitysurveys/:year
 ```
 Returns the above data for the provided year.
 
+### City Budget Data
+```
+GET /citybudgets/
+```
+Returns a list of the yearly budget expenditures by Seattle City Council.
+
 ### Seattle Housing Market Data
 ```
 GET /housingmarkets/
 ```
 Returns a list data collected from Redfin broken down by year and the month reported of the median sale price of homes, number of homes sold and the average time a house spends on the market.
+
 
 ## IN DEVELOPMENT
 

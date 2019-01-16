@@ -9,46 +9,48 @@ import logging
 env = environ.Env(DEBUG=(bool, False),)
 environ.Env.read_env()
 
-YEARS = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
-
-BASE_URL = "https://api.census.gov/data/"
-
+#US CENSUS BUREAU CONSTANTS
+CENSUS_BUREAU_YEARS = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+CENSUS_BUREAU_BASE_URL = "https://api.census.gov/data/"
 URL_2010_to_2014 = "/acs/acs1?get=B01003_001E,B19083_001E,B19013_001E,B19001_002E,B19001_003E,B19001_004E,B19001_005E,B19001_006E,B19001_007E,B19001_008E,B19001_009E,B19001_010E,B19001_011E,B19001_012E,B19001_013E,B19001_014E,B19001_015E,B19001_016E,B19001_017E,NAME&for=county:033&in=state:53&key="
-
 URL_POST_2014 = "/acs/acs1?get=B01003_001E,B19083_001E,B19013_001E,B19001_002E,B19001_003E,B19001_004E,B19001_005E,B19001_006E,B19001_007E,B19001_008E,B19001_009E,B19001_010E,B19001_011E,B19001_012E,B19001_013E,B19001_014E,B19001_015E,B19001_016E,B19001_017E,B25031_002E,B25031_003E,B25031_004E,B25031_005E,B25031_006E,B25031_007E,NAME&for=county:033&in=state:53&key="
 
 class Command(BaseCommand):
     help = 'Seeds CommunitySurvey model'
 
     def _seed_model(self):
-        for year in YEARS:
-
-            if year <= 2014:
-                myResponse = requests.get(f'{BASE_URL}{year}{URL_2010_to_2014}' + env('US_CENSUS_BUREAU_KEY'))
-                    #print (myResponse.status_code)
-                    #For successful API call, response code will be 200 (OK)
-                if(myResponse.ok):
-                    jData = json.loads(myResponse.content)
-                    print("The response contains {0} properties".format(len(jData)))
-
-                    create_survey_pre2014(year = year, data = jData[1])
-                else:
-                    myResponse.raise_for_status()
-            else:
-                myResponse = requests.get(f'{BASE_URL}{year}{URL_POST_2014}' + env('US_CENSUS_BUREAU_KEY'))
-
-                if(myResponse.ok):
-                    jData = json.loads(myResponse.content)
-                    print("The response contains {0} properties".format(len(jData)))
-
-                    data = {"year": year, "data":jData[1]}
-                    create_survey_post2014(year = year, data = jData[1])
-                else:
-                    myResponse.raise_for_status()
+        #populate community survey model
+        census_bureau_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding CommunitySurvey data...')
         self._seed_model()
+
+def census_bureau_wrapper():
+    for year in CENSUS_BUREAU_YEARS:
+
+        if year <= 2014:
+            myResponse = requests.get(f'{CENSUS_BUREAU_BASE_URL}{year}{URL_2010_to_2014}' + env('US_CENSUS_BUREAU_KEY'))
+                #print (myResponse.status_code)
+                #For successful API call, response code will be 200 (OK)
+            if(myResponse.ok):
+                jData = json.loads(myResponse.content)
+                print("The response contains {0} properties".format(len(jData)))
+
+                create_survey_pre2014(year = year, data = jData[1])
+            else:
+                myResponse.raise_for_status()
+        else:
+            myResponse = requests.get(f'{CENSUS_BUREAU_BASE_URL}{year}{URL_POST_2014}' + env('US_CENSUS_BUREAU_KEY'))
+
+            if(myResponse.ok):
+                jData = json.loads(myResponse.content)
+                print("The response contains {0} properties".format(len(jData)))
+
+                data = {"year": year, "data":jData[1]}
+                create_survey_post2014(year = year, data = jData[1])
+            else:
+                myResponse.raise_for_status()
 
 def create_survey_post2014(**kwargs):
     print (kwargs["year"])
