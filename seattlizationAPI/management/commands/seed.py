@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from seattlizationAPI.models import CommunitySurvey
+from seattlizationAPI.models import *
 from requests.auth import HTTPDigestAuth
 import requests
 import json
@@ -15,18 +15,23 @@ CENSUS_BUREAU_BASE_URL = "https://api.census.gov/data/"
 URL_2010_to_2014 = "/acs/acs1?get=B01003_001E,B19083_001E,B19013_001E,B19001_002E,B19001_003E,B19001_004E,B19001_005E,B19001_006E,B19001_007E,B19001_008E,B19001_009E,B19001_010E,B19001_011E,B19001_012E,B19001_013E,B19001_014E,B19001_015E,B19001_016E,B19001_017E,NAME&for=county:033&in=state:53&key="
 URL_POST_2014 = "/acs/acs1?get=B01003_001E,B19083_001E,B19013_001E,B19001_002E,B19001_003E,B19001_004E,B19001_005E,B19001_006E,B19001_007E,B19001_008E,B19001_009E,B19001_010E,B19001_011E,B19001_012E,B19001_013E,B19001_014E,B19001_015E,B19001_016E,B19001_017E,B25031_002E,B25031_003E,B25031_004E,B25031_005E,B25031_006E,B25031_007E,NAME&for=county:033&in=state:53&key="
 
+#data.seattle.gov Constants
+SEATTLE_DATA_BASE_URL = "https://data.seattle.gov/resource/"
+LOW_INCOME_HOUSING_IDENTIFIER="dwr3-dvgb.json?"
+
 class Command(BaseCommand):
-    help = 'Seeds CommunitySurvey model'
+    help = 'Seeds data for model'
 
     def _seed_model(self):
-        #populate community survey model
-        census_bureau_wrapper()
+        # community_suverys_wrapper()
+        # low_income_housing_wrapper()
 
     def handle(self, *args, **options):
-        self.stdout.write('seeding CommunitySurvey data...')
+        self.stdout.write('seeding data...')
         self._seed_model()
 
-def census_bureau_wrapper():
+
+def community_surveys_wrapper():
     for year in CENSUS_BUREAU_YEARS:
 
         if year <= 2014:
@@ -115,3 +120,50 @@ def create_survey_pre2014(**kwargs):
     new_survey.save()
     logging.info("{} created.".format(new_survey))
     return new_survey
+
+def low_income_housing_wrapper():
+    myResponse = requests.get(f'{SEATTLE_DATA_BASE_URL}{LOW_INCOME_HOUSING_IDENTIFIER}$limit=5000&$$app_token=' + env('SOCRATA_KEY'))
+    ## print (myResponse.status_code)
+    ## For successful API call, response code will be 200 (OK)
+    if(myResponse.ok):
+        jData = json.loads(myResponse.content)
+        print("The response contains {0} properties".format(len(jData)))
+        for item in jData:
+            create_low_income_housing(data = item)
+    else:
+        myResponse.raise_for_status()
+
+def create_low_income_housing(**kwargs):
+    data = kwargs["data"]
+    new_housing = LowIncomeHousing(
+        number_of_units = data["units_with_income_rent_limits"],
+        year_placed_in_service = data["year_placed_in_service"],
+        name = data["name"],
+        address = data["address"],
+        zip_code = data["zip_code"],
+        council_district = data["council_district"],
+    )
+    if ("hud" in data):
+        new_housing.hud = populate_boolean_field(data["hud"])
+
+    if ("sha" in data):
+        new_housing.sha = populate_boolean_field(data["sha"])
+
+    if ("state_or_county" in data):
+        new_housing.state_or_county = populate_boolean_field(data["state_of_wa_or_county"])
+
+    if ("wshfc" in data):
+        new_housing.wshfc = populate_boolean_field(data["wshfc"])
+
+    if ("city_of_seattle" in data):
+        new_housing.city_of_seattle = populate_boolean_field(data["city_of_seattle"])
+
+    new_housing.save()
+    logging.info("{} created.".format(new_housing))
+    return new_housing
+
+def populate_boolean_field(field):
+    if (field == "X"):
+        return True
+    else:
+        return False
