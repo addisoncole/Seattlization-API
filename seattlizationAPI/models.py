@@ -58,9 +58,9 @@ class BuildingPermit(models.Model):
     link = models.TextField(null=True)
 
     def __str__(self):
-        return "Permit Number: {}, Permit Class: {} - {}, Permit Type: {} - {}, Description: {} , Number of Units: {}, # of Units Removed: {}, # of Units Added: ".format(self.permit_number, self.permit_class, self.permit_class_mapped, self.permit_type, self.permit_type_mapped, self.description, self.number_of_units, self.housing_units_removed, self.housing_units_added)
+        return "Permit Number: {}, Permit Class: {} - {}, Permit Type: {} - {}, Description: {} , Number of Units: {}, # of Units Removed: {}, # of Units Added: {}".format(self.permit_number, self.permit_class, self.permit_class_mapped, self.permit_type, self.permit_type_mapped, self.description, self.number_of_units, self.housing_units_removed, self.housing_units_added)
 
-#2018 data only currently, from government watcher's spreadsheet
+# 2018 data only currently, from government watcher's spreadsheet
 class EncampmentRemoval(models.Model):
     date = models.TextField(null=False)
     year = models.TextField(null=False)

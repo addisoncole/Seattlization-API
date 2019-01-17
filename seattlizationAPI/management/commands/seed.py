@@ -1,9 +1,13 @@
 from django.core.management.base import BaseCommand
 from seattlizationAPI.models import *
 from requests.auth import HTTPDigestAuth
+import os
+import sys
+import pandas
 import requests
 import json
 import environ
+import csv
 import logging
 
 env = environ.Env(DEBUG=(bool, False),)
@@ -18,13 +22,15 @@ URL_POST_2014 = "/acs/acs1?get=B01003_001E,B19083_001E,B19013_001E,B19001_002E,B
 #data.seattle.gov Constants
 SEATTLE_DATA_BASE_URL = "https://data.seattle.gov/resource/"
 LOW_INCOME_HOUSING_IDENTIFIER="dwr3-dvgb.json?"
+BUILDING_PERMIT_IDENTIFIER="k44w-2dcq.json?"
 
 class Command(BaseCommand):
     help = 'Seeds data for model'
 
     def _seed_model(self):
-        # community_suverys_wrapper()
-        # low_income_housing_wrapper()
+        community_surveys_wrapper()
+        low_income_housing_wrapper()
+        # building_permit_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -167,3 +173,43 @@ def populate_boolean_field(field):
         return True
     else:
         return False
+
+def building_permit_wrapper():
+
+    with open(os.path.join(sys.path[0], '.Building_Permits.csv'), "r") as building_permit_csv_file:
+        csv_data = pandas.read_csv(building_permit_csv_file)
+        row_count = 0
+        for index, row in csv_data.iterrows():
+            create_building_permit(data = row)
+            print(row_count)
+            row_count += 1
+        print(f'# of Permits Loaded: {row_count}')
+
+def create_building_permit(**kwargs):
+    data = kwargs["data"]
+    new_permit = BuildingPermit(
+        permit_number = data[0],
+        permit_class = data[1],
+        permit_class_mapped = data[2],
+        permit_type = data[4],
+        permit_type_mapped = data[3],
+        description = data[5],
+        permit_application_date = data[10],
+        permit_approval_date = data[11],
+        permit_completion_date = data[13],
+        location = data[23],
+        link = data[20],
+    )
+
+    if not(pandas.isnull(data[6])):
+        new_permit.number_of_units = data[6]
+
+    if not(pandas.isnull(data[7])):
+        new_permit.housing_units_removed = data[7]
+
+    if not(pandas.isnull(data[8])):
+        new_permit.housing_units_added = data[8]
+
+    new_permit.save()
+    logging.info("{} created.".format(new_permit))
+    return new_permit
