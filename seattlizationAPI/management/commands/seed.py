@@ -237,11 +237,8 @@ def create_mfte_project(**kwargs):
     data = kwargs["data"]
     new_project= MFTEProject(
         project_name = data["project_name"],
-        # tax_exemption_start = data["tax_exemption_effective_year"],
-        # tax_exemption_end = data["tax_exemption_expires_12_31"],
         year_of_approval = data["year_of_approval"],
         address = data["address_address"],
-        council_district = data["city_council_district"],
         targeted_area = data["residential_targeted_area_urban_center_urban_village"],
         total_units = data["all_total"],
         total_affordable_units = data["all_afford"],
@@ -267,6 +264,9 @@ def create_mfte_project(**kwargs):
 
     if "tax_exemption_expires_12_31" in data:
         new_project.tax_exemption_end = data["tax_exemption_expires_12_31"]
+
+    if "city_council_district" in data:
+        new_project.council_district = data["city_council_district"]
 
     logging.info("{} created.".format(new_project))
     new_project.save()
