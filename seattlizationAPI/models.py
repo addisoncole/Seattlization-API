@@ -81,8 +81,8 @@ class EncampmentRemoval(models.Model):
 # MFTE - Multi Family Tax Exempted Projects, developers receive tax exemption for setting aside portion of housing for low income. From data.seattle.gov API
 class MFTEProject(models.Model):
     project_name = models.TextField(null=False)
-    tax_exemption_start = models.IntegerField(null=False)
-    tax_exemption_end = models.IntegerField(null=False)
+    tax_exemption_start = models.IntegerField(null=True)
+    tax_exemption_end = models.IntegerField(null=True)
     year_of_approval = models.IntegerField(null=True)
     address = models.TextField(null=False)
     council_district = models.IntegerField(null=True)
@@ -106,7 +106,7 @@ class MFTEProject(models.Model):
     four_br_affordable = models.IntegerField(null=True)
 
     def __str__(self):
-        return "Project Name: {}, Address: {}, Tax Exemption Start: {}, Tax Exemption End: {}, Total Units: {}, Total Affordable Units: {}".format(self.project_name, self.address, self.tax_exemption_start, self.total_units, self.total_affordable_units)
+        return "Project Name: {}, Address: {}, Tax Exemption Start: {}, Tax Exemption End: {}, Total Units: {}, Total Affordable Units: {}".format(self.project_name, self.address, self.tax_exemption_start, self.tax_exemption_end, self.total_units, self.total_affordable_units)
 
 #from US Census Bureau American Community Survey (ACS) 1year
 class CommunitySurvey(models.Model):

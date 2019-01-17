@@ -21,8 +21,10 @@ URL_POST_2014 = "/acs/acs1?get=B01003_001E,B19083_001E,B19013_001E,B19001_002E,B
 
 #data.seattle.gov Constants
 SEATTLE_DATA_BASE_URL = "https://data.seattle.gov/resource/"
+#data.seattle.gov/SOCRATA SODA tables for models
 LOW_INCOME_HOUSING_IDENTIFIER="dwr3-dvgb.json?"
 BUILDING_PERMIT_IDENTIFIER="k44w-2dcq.json?"
+MFTE_PROJECT_IDENTIFIER="g958-yakb.json?"
 
 class Command(BaseCommand):
     help = 'Seeds data for model'
@@ -31,6 +33,7 @@ class Command(BaseCommand):
         # community_surveys_wrapper()
         # low_income_housing_wrapper()
         # building_permit_wrapper()
+        mfte_project_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -150,25 +153,25 @@ def create_low_income_housing(**kwargs):
         council_district = data["council_district"],
     )
     if ("hud" in data):
-        new_housing.hud = populate_boolean_field(data["hud"])
+        new_housing.hud = populate_boolean_field_convert_x(data["hud"])
 
     if ("sha" in data):
-        new_housing.sha = populate_boolean_field(data["sha"])
+        new_housing.sha = populate_boolean_field_convert_x(data["sha"])
 
     if ("state_or_county" in data):
-        new_housing.state_or_county = populate_boolean_field(data["state_of_wa_or_county"])
+        new_housing.state_or_county = populate_boolean_field_convert_x(data["state_of_wa_or_county"])
 
     if ("wshfc" in data):
-        new_housing.wshfc = populate_boolean_field(data["wshfc"])
+        new_housing.wshfc = populate_boolean_field_convert_x(data["wshfc"])
 
     if ("city_of_seattle" in data):
-        new_housing.city_of_seattle = populate_boolean_field(data["city_of_seattle"])
+        new_housing.city_of_seattle = populate_boolean_field_convert_x(data["city_of_seattle"])
 
     new_housing.save()
     logging.info("{} created.".format(new_housing))
     return new_housing
 
-def populate_boolean_field(field):
+def populate_boolean_field_convert_x(field):
     if (field == "X"):
         return True
     else:
@@ -213,3 +216,64 @@ def create_building_permit(**kwargs):
     new_permit.save()
     logging.info("{} created.".format(new_permit))
     return new_permit
+
+def mfte_project_wrapper():
+    myResponse = requests.get(f'{SEATTLE_DATA_BASE_URL}{MFTE_PROJECT_IDENTIFIER}$limit=5000&$$app_token=' + env('SOCRATA_KEY'))
+    ## print (myResponse.status_code)
+    ## For successful API call, response code will be 200 (OK)
+    if(myResponse.ok):
+        jData = json.loads(myResponse.content)
+        print("The response contains {0} properties".format(len(jData)))
+        count = 1
+        for item in jData:
+            print(f'Load item #{count}')
+            print(item)
+            create_mfte_project(data = item)
+            count += 1
+    else:
+        myResponse.raise_for_status()
+
+def create_mfte_project(**kwargs):
+    data = kwargs["data"]
+    new_project= MFTEProject(
+        project_name = data["project_name"],
+        # tax_exemption_start = data["tax_exemption_effective_year"],
+        # tax_exemption_end = data["tax_exemption_expires_12_31"],
+        year_of_approval = data["year_of_approval"],
+        address = data["address_address"],
+        council_district = data["city_council_district"],
+        targeted_area = data["residential_targeted_area_urban_center_urban_village"],
+        total_units = data["all_total"],
+        total_affordable_units = data["all_afford"],
+        SEDU_total = data["sedu_total"],
+        SEDU_affordable = data["sedu_afford"],
+        studio_units_total = data["studio_total"],
+        studio_units_affordable = data["studio_afford"],
+        one_br_total = data["_1br_total"],
+        one_br_affordable = data["_1br_afford"],
+        two_br_total = data["_2br_total"],
+        two_br_affordable = data["_2br_afford"],
+        three_br_total = data["_3br_total"],
+        three_br_affordable = data["_3br_afford"],
+        four_br_total = data["_4br_total"],
+        four_br_affordable = data["_4br_afford"],
+    )
+    new_project.subsidized = populate_boolean_field_convert_yes(data['subsidized'])
+
+    new_project.microhousing = populate_boolean_field_convert_yes(data['micro'])
+
+    if "tax_exemption_effective_year" in data:
+        new_project.tax_exemption_start = data["tax_exemption_effective_year"]
+
+    if "tax_exemption_expires_12_31" in data:
+        new_project.tax_exemption_end = data["tax_exemption_expires_12_31"]
+
+    logging.info("{} created.".format(new_project))
+    new_project.save()
+    return new_project
+
+def populate_boolean_field_convert_yes(field):
+    if (field == "Yes"):
+        return True
+    else:
+        return False
