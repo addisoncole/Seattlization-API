@@ -28,8 +28,8 @@ class Command(BaseCommand):
     help = 'Seeds data for model'
 
     def _seed_model(self):
-        community_surveys_wrapper()
-        low_income_housing_wrapper()
+        # community_surveys_wrapper()
+        # low_income_housing_wrapper()
         # building_permit_wrapper()
 
     def handle(self, *args, **options):

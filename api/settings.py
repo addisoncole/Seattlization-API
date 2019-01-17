@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'selenium',
     'seattlizationAPI',
     'corsheaders',
+    'pandas',
 ]
 
 MIDDLEWARE = [
