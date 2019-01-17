@@ -25,15 +25,18 @@ SEATTLE_DATA_BASE_URL = "https://data.seattle.gov/resource/"
 LOW_INCOME_HOUSING_IDENTIFIER="dwr3-dvgb.json?"
 BUILDING_PERMIT_IDENTIFIER="k44w-2dcq.json?"
 MFTE_PROJECT_IDENTIFIER="g958-yakb.json?"
+OPEN_BUDGET_IDENTIFIER="ucpj-3ky7.json?"
 
 class Command(BaseCommand):
     help = 'Seeds data for model'
 
     def _seed_model(self):
+    ## UNCOMMENT & RUN 'python manage.py seed' TO LOAD MODELS WITH PRODUCTION DATA, MAY NEED CORRECT .CSVs FROM DATA SOURCES ON YOUR LOCAL MACHINE TO POPULATE CORRECTLY AS WELL AS KEYS TO SPECIFIC APIs.
         # community_surveys_wrapper()
         # low_income_housing_wrapper()
         # building_permit_wrapper()
-        mfte_project_wrapper()
+        # mfte_project_wrapper()
+        city_budget_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -277,3 +280,19 @@ def populate_boolean_field_convert_yes(field):
         return True
     else:
         return False
+
+def city_budget_wrapper():
+    myResponse = requests.get(f'{SEATTLE_DATA_BASE_URL}{OPEN_BUDGET_IDENTIFIER}$limit=5000&$$app_token=' + env('SOCRATA_KEY'))
+    ## print (myResponse.status_code)
+    ## For successful API call, response code will be 200 (OK)
+    if(myResponse.ok):
+        jData = json.loads(myResponse.content)
+        print("The response contains {0} properties".format(len(jData)))
+        # count = 1
+        # for item in jData:
+        #     print(f'Load item #{count}')
+        #     print(item)
+        #     create_mfte_project(data = item)
+        #     count += 1
+    else:
+        myResponse.raise_for_status()
