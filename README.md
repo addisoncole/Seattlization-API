@@ -47,13 +47,13 @@ Returns a list of each removal of an 'illegal' encampment. Returns removal dates
 ```
 GET /mfteprojects/
 ```
-Returns a list of each project approved under Seattle's MFTE Program, which provides tax emptions in exchange for setting aside 20-25% of the homes as income or rent-restricted.
+Returns a list of each project approved under Seattle's MFTE Program, which provides tax exemptions in exchange for setting aside 20-25% of the homes as income or rent-restricted.
 
 ### U.S. Census Bureau Yearly American Community Surveys
 ```
 GET /communitysurveys/
 ```
-Returns a list of statistics for King County collected by the yearly US Census Bureau's American Commuity Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings. Years Available: 2010 - 2017.
+Returns a list of statistics for King County collected by the yearly US Census Bureau's American Community Survey. Returns total population, median income, Gini index coefficient, breakdown of population by earnings, and the median rental cost of different rental listings. Years Available: 2010 - 2017.
 ```
 GET /communitysurveys/:year
 ```
@@ -74,4 +74,6 @@ Returns a list data collected from Redfin broken down by year and the month repo
 
 ## IN DEVELOPMENT
 
-Additonal Endpoints desired: yearly city budgets, number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city
+Advanced filtering of existing endpoints
+
+Additional future Endpoints: number of death per year of individuals living on the street,  yearly data on stock of shelter beds provided by the city
