@@ -114,4 +114,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Large Data Files
 .Building_Permits.csv
+.Encampment_Removals.csv

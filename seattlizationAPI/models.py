@@ -66,6 +66,7 @@ class EncampmentRemoval(models.Model):
     year = models.TextField(null=False)
     location = models.TextField(null=False)
     departments_responsible_for_removal = models.TextField(null=True)
+    found_on_city_property = models.NullBooleanField(null=True)
     vehicle_hazard = models.NullBooleanField(null=True)
     criminal_activity = models.NullBooleanField(null=True)
     waste_and_debris = models.NullBooleanField(null=True)

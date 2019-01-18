@@ -37,6 +37,7 @@ class Command(BaseCommand):
         # building_permit_wrapper()
         # mfte_project_wrapper()
         # city_budget_wrapper()
+        encampment_removal_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -327,3 +328,32 @@ def create_budget_item(**kwargs):
 
     new_item.save()
     return new_item
+
+def encampment_removal_wrapper():
+
+    with open(os.path.join(sys.path[0], '.Encampment_Removals.csv'), "r") as encampment_removal_csv_file:
+        csv_data = pandas.read_csv(encampment_removal_csv_file)
+        row_count = 1
+        for index, row in csv_data.iterrows():
+            create_encampment_removal(data = row)
+            print(f'Loading encampment removal #{row_count}')
+            row_count += 1
+        print(f'# of Encampment Removal entries Loaded: {row_count}')
+
+def create_encampment_removal(**kwargs):
+    data = kwargs["data"]
+    print(data)
+    # new_removal = EncampmentRemoval(
+    #     date = data[0],
+    #     year = ,
+    #     location = data[1],
+    #     departments_responsible_for_removal = ,
+    #     vehicle_hazard = data[2],
+    #     criminal_activity = ,
+    #     waste_and_debris = ,
+    #     health_hazard_to_neighborhood = ,
+    #     limited_emergency_services = ,
+    #     scheduled_worksite = ,
+    #     damage_to_environment = ,
+    #     proximity_to_school_or_elderly = ,
+    # )
