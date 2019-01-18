@@ -36,7 +36,7 @@ class Command(BaseCommand):
         # low_income_housing_wrapper()
         # building_permit_wrapper()
         # mfte_project_wrapper()
-        city_budget_wrapper()
+        # city_budget_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -44,6 +44,7 @@ class Command(BaseCommand):
 
 
 def community_surveys_wrapper():
+    count = 1
     for year in CENSUS_BUREAU_YEARS:
 
         if year <= 2014:
@@ -53,7 +54,7 @@ def community_surveys_wrapper():
             if(myResponse.ok):
                 jData = json.loads(myResponse.content)
                 print("The response contains {0} properties".format(len(jData)))
-
+                print(f"creating survey item #{count} from census bureau response year {year}...")
                 create_survey_pre2014(year = year, data = jData[1])
             else:
                 myResponse.raise_for_status()
@@ -63,12 +64,11 @@ def community_surveys_wrapper():
             if(myResponse.ok):
                 jData = json.loads(myResponse.content)
                 print("The response contains {0} properties".format(len(jData)))
-
-                data = {"year": year, "data":jData[1]}
+                print(f"creating survey item #{count} from census bureau response year {year}...")
                 create_survey_post2014(year = year, data = jData[1])
             else:
                 myResponse.raise_for_status()
-
+    print(f"loaded {count} census bureau surveys")
 def create_survey_post2014(**kwargs):
     print (kwargs["year"])
     new_survey = CommunitySurvey(
@@ -140,8 +140,12 @@ def low_income_housing_wrapper():
     if(myResponse.ok):
         jData = json.loads(myResponse.content)
         print("The response contains {0} properties".format(len(jData)))
+        count = 1
         for item in jData:
             create_low_income_housing(data = item)
+            print(f'Load low income housing item #{count}')
+            count += 1
+        print(f'Loaded {count} low income housing items')
     else:
         myResponse.raise_for_status()
 
@@ -184,12 +188,12 @@ def building_permit_wrapper():
 
     with open(os.path.join(sys.path[0], '.Building_Permits.csv'), "r") as building_permit_csv_file:
         csv_data = pandas.read_csv(building_permit_csv_file)
-        row_count = 0
+        row_count = 1
         for index, row in csv_data.iterrows():
             create_building_permit(data = row)
-            print(row_count)
+            print(f'Loading building permit #{row_count}')
             row_count += 1
-        print(f'# of Permits Loaded: {row_count}')
+        print(f'# of Building Permits Loaded: {row_count}')
 
 def create_building_permit(**kwargs):
     data = kwargs["data"]
@@ -229,10 +233,11 @@ def mfte_project_wrapper():
         print("The response contains {0} properties".format(len(jData)))
         count = 1
         for item in jData:
-            print(f'Load item #{count}')
+            print(f'Load mfte project #{count}')
             print(item)
             create_mfte_project(data = item)
             count += 1
+        print(f'Loaded #{count} mfte projects.')
     else:
         myResponse.raise_for_status()
 
@@ -290,10 +295,10 @@ def city_budget_wrapper():
         print("The response contains {0} properties".format(len(jData)))
         count = 1
         for item in jData:
-            print(f'Load item #{count}')
+            print(f'Load city budget item #{count}')
             create_budget_item(data = item)
             count += 1
-        print(f'Loaded {count} items')
+        print(f'Loaded {count} city budget items')
     else:
         myResponse.raise_for_status()
 
@@ -319,6 +324,6 @@ def create_budget_item(**kwargs):
         new_item.approved_amount = data["approved_amount"]
 
     logging.info("{} created.".format(new_item))
-    
+
     new_item.save()
     return new_item
