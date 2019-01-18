@@ -4,12 +4,12 @@ from .models import HomelessCount, LowIncomeHousing, BuildingPermit, EncampmentR
 class HomelessCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomelessCount
-        fields = ("year", "total", "unsheltered", "emergency_shelter", "transitional_housing", "number_in_seattle", "pct_female", "pct_male", "pct_trans", "pct_gnc", "pct_white", "pct_black", "pct_latino", "pct_indigenous", "pct_asian", "pct_hawaiian_api", "pct_multiracial")
+        fields = ("year", "total", "unsheltered", "number_in_shelter_and_transitional_housing", "emergency_shelter", "transitional_housing", "number_unsheltered_in_seattle", "number_sheltered_in_seattle", "number_male_on_street", "number_female_on_street", "number_unknown_gender_on_street", "number_of_minors_on_street", "pct_female", "pct_male", "pct_trans", "pct_gnc", "pct_white", "pct_black", "pct_latino", "pct_indigenous", "pct_asian", "pct_hawaiian_api", "pct_multiracial")
 
 class HomelessCountDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomelessCount
-        fields = ("year", "total", "unsheltered", "emergency_shelter", "transitional_housing", "number_in_seattle", "pct_female", "pct_male", "pct_trans", "pct_gnc", "pct_white", "pct_black", "pct_latino", "pct_indigenous", "pct_asian", "pct_hawaiian_api", "pct_multiracial")
+        fields = ("year", "total", "unsheltered", "number_in_shelter_and_transitional_housing", "emergency_shelter", "transitional_housing", "number_unsheltered_in_seattle", "number_sheltered_in_seattle", "number_male_on_street", "number_female_on_street", "number_unknown_gender_on_street", "number_of_minors_on_street", "pct_female", "pct_male", "pct_trans", "pct_gnc", "pct_white", "pct_black", "pct_latino", "pct_indigenous", "pct_asian", "pct_hawaiian_api", "pct_multiracial")
         lookup_field = 'year'
 
 class LowIncomeHousingSerializer(serializers.ModelSerializer):
