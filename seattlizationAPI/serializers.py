@@ -31,7 +31,7 @@ class  BuildingPermitSerializer(serializers.ModelSerializer):
 class  EncampmentRemovalSerializer(serializers.ModelSerializer):
     class Meta:
         model = EncampmentRemoval
-        fields = ("date", "year", "location", "departments_responsible_for_removal", "vehicle_hazard", "criminal_activity", "waste_and_debris", "health_hazard_to_neighborhood", "limited_emergency_services", "scheduled_worksite", "damage_to_environment", "proximity_to_school_or_elderly")
+        fields = ("date", "year", "location", "departments_responsible_for_removal", "notes", "found_on_city_property", "vehicle_hazard", "criminal_activity_beyond_drug_use", "waste_and_debris", "health_hazard_to_neighborhood", "limited_emergency_services", "scheduled_worksite", "damage_to_environment", "proximity_to_school_or_elderly")
 
 class  MFTEProjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,4 +57,4 @@ class  CityBudgetSerializer(serializers.ModelSerializer):
 class  HousingMarketSerializer(serializers.ModelSerializer):
     class Meta:
         model = HousingMarket
-        fields = ("year", "month", "median_sale_price", "homes_sold", "days_on_market")
+        fields = ("month", "year", "homes_sold", "inventory", "number_of_new_listings", "number_of_pending_sales", "median_sale_price", "pct_sold_above_list", "avg_days_on_market")

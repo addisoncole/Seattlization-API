@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from seattlizationAPI.models import *
 from requests.auth import HTTPDigestAuth
+from decimal import *
 import os
 import sys
 import pandas
@@ -352,7 +353,7 @@ def create_encampment_removal(**kwargs):
         notes = data[11],
         found_on_city_property = populate_boolean_field_convert_yes(data[2]),
         vehicle_hazard = populate_boolean_field_convert_yes(data[3]),
-        criminal_activity = populate_boolean_field_convert_yes(data[4]),
+        criminal_activity_beyond_drug_use = populate_boolean_field_convert_yes(data[4]),
         waste_and_debris = populate_boolean_field_convert_yes(data[5]),
         health_hazard_to_neighborhood = populate_boolean_field_convert_yes(data[6]),
         limited_emergency_services = populate_boolean_field_convert_yes(data[7]),
@@ -369,18 +370,52 @@ def housing_market_wrapper():
     with open(os.path.join(sys.path[0], '.Housing_Market_Data.csv'), "r") as housing_market_csv_file:
         csv_data = pandas.read_csv(housing_market_csv_file)
         row_count = 1
-        print(csv_data)
-        # print(f'loading housing market data from RedFin')
-        # for index, row in csv_data.iterrows():
-        #     # create_housing_market_entry(data = row)
-        #     print(f'Loading housing market data #{row_count}')
-        #     print(f'{row}')
-        #     row_count += 1
-        # print(f'# of entries for housing market data: {row_count}')
+        print(f'loading housing market data from RedFin')
+        for index, row in csv_data.iterrows():
+            print(f'Loading housing market data #{row_count}')
+            create_housing_market_entry(data = row)
+            row_count += 1
+        print(f'# of entries for housing market data: {row_count}')
 
 def create_housing_market_entry(**kwargs):
     data = kwargs["data"]
-    print(data)
-    new_removal = HousingMarket(
-
+    new_entry = HousingMarket(
+        month = get_month(data["Period End"]),
+        year = get_year(data["Period End"]),
+        homes_sold = data["Homes Sold"],
+        inventory = data["Inventory"],
+        number_of_new_listings = data["New Listings"],
+        number_of_pending_sales = data["pending_sales"],
+        median_sale_price = data["Median Sale Price"],
+        pct_sold_above_list = ('%.1f' % (data["Sold Above List"] * 100)),
+        avg_days_on_market = data["Median Dom"],
     )
+    print(new_entry)
+    new_entry.save()
+    logging.info("{} created.".format(new_entry))
+    return new_entry
+
+def get_month(date):
+    datelist = date.split("/")
+    return switch_month_to_alphabetic(datelist[0])
+
+def switch_month_to_alphabetic(month):
+    switcher = {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+    }
+    return switcher.get(month, "Invalid month")
+
+def get_year(date):
+    datelist = date.split("/")
+    return datelist[2]

@@ -69,7 +69,7 @@ class EncampmentRemoval(models.Model):
     notes = models.TextField(null=True)
     found_on_city_property = models.NullBooleanField(null=True)
     vehicle_hazard = models.NullBooleanField(null=True)
-    criminal_activity = models.NullBooleanField(null=True)
+    criminal_activity_beyond_drug_use = models.NullBooleanField(null=True)
     waste_and_debris = models.NullBooleanField(null=True)
     health_hazard_to_neighborhood = models.NullBooleanField(null=True)
     limited_emergency_services = models.NullBooleanField(null=True)
@@ -78,7 +78,7 @@ class EncampmentRemoval(models.Model):
     proximity_to_school_or_elderly = models.NullBooleanField(null=True)
 
     def __str__(self):
-        return "Date of Removal: {}, {}, Location: {}, Departments responsible for removal: {}, Reasons for Removal: vehicle hazard - {}, criminal activity - {}, waste & debris - {}, health hazard to neighborhood - {}, limited emergency services - {}, scheduled worksite - {}, damage to environment - {}, proximity_to_school_or_elderly - {}".format(self.date, self.year, self.location, self.departments_responsible_for_removal, self.vehicle_hazard, self.criminal_activity, self.waste_and_debris, self.health_hazard_to_neighborhood, self.limited_emergency_services, self.scheduled_worksite, self.damage_to_environment, self.proximity_to_school_or_elderly)
+        return "Date of Removal: {}, {}, Location: {}, Departments responsible for removal: {}, Reasons for Removal: vehicle hazard - {}, criminal activity beyond drug use - {}, waste & debris - {}, health hazard to neighborhood - {}, limited emergency services - {}, scheduled worksite - {}, damage to environment - {}, proximity_to_school_or_elderly - {}".format(self.date, self.year, self.location, self.departments_responsible_for_removal, self.vehicle_hazard, self.criminal_activity, self.waste_and_debris, self.health_hazard_to_neighborhood, self.limited_emergency_services, self.scheduled_worksite, self.damage_to_environment, self.proximity_to_school_or_elderly)
 
 # MFTE - Multi Family Tax Exempted Projects, developers receive tax exemption for setting aside portion of housing for low income. From data.seattle.gov API
 class MFTEProject(models.Model):
@@ -163,16 +163,16 @@ class CityBudget(models.Model):
 
 #data from Redfin
 class HousingMarket(models.Model):
-    period_begin = models.DateField(null=True, auto_now=False)
-    period_end = models.DateField(null=True, auto_now=False)
+    month = models.TextField(null=True)
+    year = models.IntegerField(null=True)
     homes_sold = models.IntegerField(null=True)
     inventory = models.IntegerField(null=True)
     number_of_new_listings = models.IntegerField(null=True)
     number_of_pending_sales = models.IntegerField(null=True)
     median_sale_price = models.TextField(null=True)
-    pct_sold_above_list = models.DecimalField(null=True,max_digits=2, decimal_places=1)
+    pct_sold_above_list = models.TextField(null=True)
     avg_days_on_market = models.IntegerField(null=True)
 
 
     def __str__(self):
-        return "Month/Year: {}/{}, Median Sale Price: {}, # of Homes Sold: {}, Avg # days on market: {}".format(self.month, self.year, self.median_sale_price, self.homes_sold, self.days_on_market)
+        return "Month/Year: {}/{}, Median Sale Price: {}, # of Homes Sold: {}, Avg # days on market: {}".format(self.month, self.year, self.median_sale_price, self.homes_sold, self.avg_days_on_market)
