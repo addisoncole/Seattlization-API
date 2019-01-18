@@ -343,17 +343,22 @@ def encampment_removal_wrapper():
 def create_encampment_removal(**kwargs):
     data = kwargs["data"]
     print(data)
-    # new_removal = EncampmentRemoval(
-    #     date = data[0],
-    #     year = ,
-    #     location = data[1],
-    #     departments_responsible_for_removal = ,
-    #     vehicle_hazard = data[2],
-    #     criminal_activity = ,
-    #     waste_and_debris = ,
-    #     health_hazard_to_neighborhood = ,
-    #     limited_emergency_services = ,
-    #     scheduled_worksite = ,
-    #     damage_to_environment = ,
-    #     proximity_to_school_or_elderly = ,
-    # )
+    new_removal = EncampmentRemoval(
+        date = data[0],
+        year = 2018,
+        location = data[1],
+        departments_responsible_for_removal = data[12],
+        notes = data[11],
+        found_on_city_property = populate_boolean_field_convert_yes(data[2]),
+        vehicle_hazard = populate_boolean_field_convert_yes(data[3]),
+        criminal_activity = populate_boolean_field_convert_yes(data[4]),
+        waste_and_debris = populate_boolean_field_convert_yes(data[5]),
+        health_hazard_to_neighborhood = populate_boolean_field_convert_yes(data[6]),
+        limited_emergency_services = populate_boolean_field_convert_yes(data[7]),
+        scheduled_worksite = populate_boolean_field_convert_yes(data[8]),
+        damage_to_environment = populate_boolean_field_convert_yes(data[9]),
+        proximity_to_school_or_elderly = populate_boolean_field_convert_yes(data[10]),
+    )
+    new_removal.save()
+    logging.info("{} created.".format(new_removal))
+    return new_removal
