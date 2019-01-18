@@ -117,3 +117,4 @@ dmypy.json
 # Large Data Files
 .Building_Permits.csv
 .Encampment_Removals.csv
+.Housing_Market_Data.csv

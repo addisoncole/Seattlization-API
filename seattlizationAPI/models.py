@@ -163,11 +163,16 @@ class CityBudget(models.Model):
 
 #data from Redfin
 class HousingMarket(models.Model):
-    year = models.IntegerField(null=False)
-    month = models.TextField(null=False)
-    median_sale_price = models.TextField(null=False)
-    homes_sold = models.TextField(null=True)
-    days_on_market = models.IntegerField(null=False)
+    period_begin = models.DateField(null=True, auto_now=False)
+    period_end = models.DateField(null=True, auto_now=False)
+    homes_sold = models.IntegerField(null=True)
+    inventory = models.IntegerField(null=True)
+    number_of_new_listings = models.IntegerField(null=True)
+    number_of_pending_sales = models.IntegerField(null=True)
+    median_sale_price = models.TextField(null=True)
+    pct_sold_above_list = models.DecimalField(null=True,max_digits=2, decimal_places=1)
+    avg_days_on_market = models.IntegerField(null=True)
+
 
     def __str__(self):
         return "Month/Year: {}/{}, Median Sale Price: {}, # of Homes Sold: {}, Avg # days on market: {}".format(self.month, self.year, self.median_sale_price, self.homes_sold, self.days_on_market)

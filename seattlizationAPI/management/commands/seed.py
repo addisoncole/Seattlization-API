@@ -37,7 +37,8 @@ class Command(BaseCommand):
         # building_permit_wrapper()
         # mfte_project_wrapper()
         # city_budget_wrapper()
-        encampment_removal_wrapper()
+        # encampment_removal_wrapper()
+        housing_market_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -362,3 +363,24 @@ def create_encampment_removal(**kwargs):
     new_removal.save()
     logging.info("{} created.".format(new_removal))
     return new_removal
+
+def housing_market_wrapper():
+
+    with open(os.path.join(sys.path[0], '.Housing_Market_Data.csv'), "r") as housing_market_csv_file:
+        csv_data = pandas.read_csv(housing_market_csv_file)
+        row_count = 1
+        print(csv_data)
+        # print(f'loading housing market data from RedFin')
+        # for index, row in csv_data.iterrows():
+        #     # create_housing_market_entry(data = row)
+        #     print(f'Loading housing market data #{row_count}')
+        #     print(f'{row}')
+        #     row_count += 1
+        # print(f'# of entries for housing market data: {row_count}')
+
+def create_housing_market_entry(**kwargs):
+    data = kwargs["data"]
+    print(data)
+    new_removal = HousingMarket(
+
+    )
