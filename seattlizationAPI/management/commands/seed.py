@@ -39,7 +39,7 @@ class Command(BaseCommand):
         # mfte_project_wrapper()
         # city_budget_wrapper()
         # encampment_removal_wrapper()
-        housing_market_wrapper()
+        # housing_market_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
