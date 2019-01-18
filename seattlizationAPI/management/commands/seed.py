@@ -288,11 +288,37 @@ def city_budget_wrapper():
     if(myResponse.ok):
         jData = json.loads(myResponse.content)
         print("The response contains {0} properties".format(len(jData)))
-        # count = 1
-        # for item in jData:
-        #     print(f'Load item #{count}')
-        #     print(item)
-        #     create_mfte_project(data = item)
-        #     count += 1
+        count = 1
+        for item in jData:
+            print(f'Load item #{count}')
+            create_budget_item(data = item)
+            count += 1
+        print(f'Loaded {count} items')
     else:
         myResponse.raise_for_status()
+
+def create_budget_item(**kwargs):
+    data = kwargs["data"]
+    new_item= CityBudget(
+        fiscal_year = data["fiscal_year"],
+        department = data["department"],
+        program = data["program"],
+        expense_category = data["expense_category"],
+        expense_type = data["expense_type"],
+        fund = data["fund"],
+        fund_type = data["fund_type"],
+        description = data["description"],
+    )
+    if "service" in data:
+        new_item.service = data["service"]
+
+    if "recommended_amount" in data:
+        new_item.recommended_amount = data["recommended_amount"]
+
+    if "tax_exemption_effective_year" in data:
+        new_item.approved_amount = data["approved_amount"]
+
+    logging.info("{} created.".format(new_item))
+    
+    new_item.save()
+    return new_item
