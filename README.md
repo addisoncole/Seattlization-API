@@ -13,41 +13,41 @@ This data was attained through data scraping public data from nonprofits, U.S. C
 ```
 GET /homelesscounts/
 ```
-Returns a list of yearly homeless counts for King County and demographics of individuals counted.
+Returns a list of yearly homeless counts for the yearly Count Us In/One Night Count for King County (some data localized for Seattle). Contains shelter and unsheltered counts and demographics of individuals counted when data available. Years 1998 - 2018.
 
 ```
 GET /homelesscounts/:year
 ```
-Returns the homeless count for that year.
+Returns the results of the point in time count for that year.
 
 ### Low Income Housing Stock
 ```
 GET /lowincomehousing/
 ```
-Returns a list all rent & income restricted housing in Seattle, the number of units at the address, when they were added to the list of stock and details about who manages the contracts for the housing.
+Returns a list all rent & income restricted housing in Seattle, the number of units at the address, when they were added to the list of stock and details about who manages the contracts for the housing. Data comes from data.seattle.gov. Years 1942 - Present.
 
-```
+<!-- ```
 GET /lowincomehousing/:year
 ```
-Returns a list of all rent & income restricted housing in Seattle added during the provided year.
+Returns a list of all rent & income restricted housing in Seattle added during the provided year. -->
 
 ### Building Permitting in Seattle
 ```
 GET /buildingpermits/
 ```
-Returns a list of collected building permits in Seattle, details about the project, whether it is residential or commercial, and any housing units permitted to be added or removed.
+Returns a list of collected building permits in Seattle, details about the project, whether it is residential or commercial, and any housing units permitted to be added or removed. Covers mostly years mid 2000s to present, though some data extends as far back as 1986.
 
 ### Encampment Removals
 ```
 GET /encampmentremovals/
 ```
-Returns a list of each removal of an 'illegal' encampment. Returns removal dates, agencies responsible for removal, as well as reasons used for removal.
+Returns a list of each removal of an 'illegal' encampment. Returns removal dates, agencies responsible for removal, as well as reasons used for removal. Data currently only available for first half of 2018.
 
 ### Multi-Family Tax Exempted(MFTE) Projects
 ```
 GET /mfteprojects/
 ```
-Returns a list of each project approved under Seattle's MFTE Program, which provides tax exemptions in exchange for setting aside 20-25% of the homes as income or rent-restricted.
+Returns a list of each project approved under Seattle's MFTE Program, which provides tax exemptions in exchange for setting aside 20-25% of the homes as income or rent-restricted. Years 1999 to present.
 
 ### U.S. Census Bureau Yearly American Community Surveys
 ```
@@ -63,13 +63,13 @@ Returns the above data for the provided year.
 ```
 GET /citybudgets/
 ```
-Returns a list of the yearly budget expenditures by Seattle City Council.
+Returns a list of the yearly budget expenditures by Seattle City Council. Years 2010 - 2016.
 
 ### Seattle Housing Market Data
 ```
 GET /housingmarkets/
 ```
-Returns a list data collected from Redfin broken down by year and the month reported of the median sale price of homes, number of homes sold and the average time a house spends on the market.
+Returns a list data collected from Redfin broken down by year and the month of the reported median sale price of homes, the percentage of homes sold above list price, number of homes sold, housing sale inventory, and the average time a house spends on the market. Years 2012 - 2018.
 
 
 ## IN DEVELOPMENT
