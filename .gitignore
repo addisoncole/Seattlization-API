@@ -118,3 +118,4 @@ dmypy.json
 .Building_Permits.csv
 .Encampment_Removals.csv
 .Housing_Market_Data.csv
+.Homeless_Counts.json

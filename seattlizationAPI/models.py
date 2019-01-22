@@ -169,7 +169,7 @@ class CityBudget(models.Model):
 
 #data from Redfin
 class HousingMarket(models.Model):
-    month = models.TextField(null=True)
+    month = models.IntegerField(null=True)
     year = models.IntegerField(null=True)
     homes_sold = models.IntegerField(null=True)
     inventory = models.IntegerField(null=True)

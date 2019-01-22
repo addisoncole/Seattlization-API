@@ -39,7 +39,7 @@ class Command(BaseCommand):
         # mfte_project_wrapper()
         # city_budget_wrapper()
         # encampment_removal_wrapper()
-        # housing_market_wrapper()
+        housing_market_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -397,7 +397,24 @@ def create_housing_market_entry(**kwargs):
 
 def get_month(date):
     datelist = date.split("/")
-    return switch_month_to_alphabetic(datelist[0])
+    return switch_month_to_two_digits(datelist[0])
+
+def switch_month_to_two_digits(month):
+    switcher = {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "10": 10,
+        "11": 11,
+        "12": 12
+    }
+    return switcher.get(month, "Invalid month")
 
 def switch_month_to_alphabetic(month):
     switcher = {
