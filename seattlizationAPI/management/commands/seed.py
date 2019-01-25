@@ -39,7 +39,8 @@ class Command(BaseCommand):
         # mfte_project_wrapper()
         # city_budget_wrapper()
         # encampment_removal_wrapper()
-        housing_market_wrapper()
+        # housing_market_wrapper()
+        # homeless_count_wrapper()
 
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
@@ -389,6 +390,49 @@ def create_housing_market_entry(**kwargs):
         median_sale_price = data["Median Sale Price"],
         pct_sold_above_list = ('%.1f' % (data["Sold Above List"] * 100)),
         avg_days_on_market = data["Median Dom"],
+    )
+    print(new_entry)
+    new_entry.save()
+    logging.info("{} created.".format(new_entry))
+    return new_entry
+
+def homeless_count_wrapper():
+    with open(os.path.join(sys.path[0], '.Homeless_Counts.json'), "r") as housing_counts_file:
+        json_data = pandas.read_json(housing_counts_file)
+        row_count = 1
+        print(f'Loading homeless count data')
+        for index, row in json_data.iterrows():
+            print(f'Loading homeless count data #{row_count}')
+            create_homeless_count(data = row)
+            row_count += 1
+        print(f'# of entries for housing market data: {row_count}')
+
+def create_homeless_count(**kwargs):
+    data = kwargs["data"]
+    new_entry = HomelessCount(
+        year = data["year"],
+        total = data["total"],
+        unsheltered = data["unsheltered"],
+        number_in_shelter_and_transitional_housing = data["number_in_shelter_and_transitional_housing"],
+        emergency_shelter = data["emergency_shelter"],
+        transitional_housing = data["transitional_housing"],
+        number_unsheltered_in_seattle = data["number_unsheltered_in_seattle"],
+        number_sheltered_in_seattle = data["number_sheltered_in_seattle"],
+        number_male_on_street = data["number_male_on_street"],
+        number_female_on_street = data["number_female_on_street"],
+        number_unknown_gender_on_street = data["number_unknown_gender_on_street"],
+        number_of_minors_on_street = data["number_of_minors_on_street"],
+        pct_female = data["pct_female"],
+        pct_male = data["pct_male"],
+        pct_trans = data["pct_trans"],
+        pct_gnc = data["pct_gnc"],
+        pct_white = data["pct_white"],
+        pct_black = data["pct_black"],
+        pct_latino = data["pct_latino"],
+        pct_indigenous = data["pct_indigenous"],
+        pct_asian = data["pct_asian"],
+        pct_hawaiian_api = data["pct_hawaiian_api"],
+        pct_multiracial = data["pct_multiracial"],
     )
     print(new_entry)
     new_entry.save()
